@@ -9,11 +9,11 @@ import java.time.ZoneId;
 public class Schedule {
 
     private final String[][] scheduleData = {
-            {"12:40-14:00 - Экология", "14:05-15:25 - Математика", "15:40-17:00 - Физра", "17:05-18:25 - ИКТ"},
-            {"12:40-14:00 - Безопасность сетей", "14:05-15:25 - География", "15:40-17:00 - География", "17:05-18:25 - Физра"},
-            {"13:30-14:35 - География", "14:45-15:50 - ИКТ", "16:05-17:10 - Экология", "17:15-18:20 - История"},
-            {"13:20-14:10 - История", "14:20-15:10 - ИКТ"},
-            {"11:10-12:30 - Безопасность сетей", "12:40-14:00 - Безопасность сетей/Математика", "14:05-15:25 - Программирование", "15:40-17:00 - Математика"},
+            {"12:40-14:00 - Р­РєРѕР»РѕРіРёСЏ", "14:05-15:25 - РњР°С‚РµРјР°С‚РёРєР°", "15:40-17:00 - Р¤РёР·СЂР°", "17:05-18:25 - РРљРў"},
+            {"12:40-14:00 - Р‘РµР·РѕРїР°СЃРЅРѕСЃС‚СЊ СЃРµС‚РµР№", "14:05-15:25 - Р“РµРѕРіСЂР°С„РёСЏ", "15:40-17:00 - Р“РµРѕРіСЂР°С„РёСЏ", "17:05-18:25 - Р¤РёР·СЂР°"},
+            {"13:30-14:35 - Р“РµРѕРіСЂР°С„РёСЏ", "14:45-15:50 - РРљРў", "16:05-17:10 - Р­РєРѕР»РѕРіРёСЏ", "17:15-18:20 - РСЃС‚РѕСЂРёСЏ"},
+            {"13:20-14:10 - РСЃС‚РѕСЂРёСЏ", "14:20-15:10 - РРљРў"},
+            {"11:10-12:30 - Р‘РµР·РѕРїР°СЃРЅРѕСЃС‚СЊ СЃРµС‚РµР№", "12:40-14:00 - Р‘РµР·РѕРїР°СЃРЅРѕСЃС‚СЊ СЃРµС‚РµР№/РњР°С‚РµРјР°С‚РёРєР°", "14:05-15:25 - РџСЂРѕРіСЂР°РјРјРёСЂРѕРІР°РЅРёРµ", "15:40-17:00 - РњР°С‚РµРјР°С‚РёРєР°"},
     };
 
     private LocalTime getCurrentTimeInAlmaty() {
@@ -26,10 +26,10 @@ public class Schedule {
         int dayIndex = dayOfWeek.getValue() - 1;
 
         if (dayIndex < 0 || dayIndex >= scheduleData.length) {
-            return "Сегодня выходной. Нет расписания.";
+            return "РЎРµРіРѕРґРЅСЏ РІС‹С…РѕРґРЅРѕР№. РќРµС‚ СЂР°СЃРїРёСЃР°РЅРёСЏ.";
         }
 
-        StringBuilder schedule = new StringBuilder("Расписание на сегодня:\n");
+        StringBuilder schedule = new StringBuilder("Р Р°СЃРїРёСЃР°РЅРёРµ РЅР° СЃРµРіРѕРґРЅСЏ:\n");
         for (String lesson : scheduleData[dayIndex]) {
             schedule.append(lesson).append("\n");
         }
@@ -39,13 +39,13 @@ public class Schedule {
     public String getBreakMessage() {
         LocalTime currentTime = getCurrentTimeInAlmaty();
         String todaySchedule = getScheduleForToday();
-        if (todaySchedule.contains("Сегодня выходной")) {
+        if (todaySchedule.contains("РЎРµРіРѕРґРЅСЏ РІС‹С…РѕРґРЅРѕР№")) {
             return todaySchedule;
         }
 
         LocalTime nextBreakStart = calculateNextBreakStart(currentTime);
         if (nextBreakStart != null) {
-            return timeUntilEnd(currentTime, nextBreakStart, "перерыв");
+            return timeUntilEnd(currentTime, nextBreakStart, "РїРµСЂРµСЂС‹РІ");
         }
 
         for (String lesson : todaySchedule.split("\n")) {
@@ -57,7 +57,7 @@ public class Schedule {
                     LocalTime endTime = LocalTime.parse(times[1].trim());
 
                     if (isBetween(currentTime, startTime, endTime)) {
-                        return timeUntilEnd(currentTime, endTime, "пара");
+                        return timeUntilEnd(currentTime, endTime, "РїР°СЂР°");
                     }
                 }
             }
@@ -101,10 +101,10 @@ public class Schedule {
 
         for (LocalTime[] times : breakTimes) {
             if (isBetween(currentTime, times[0], times[1])) {
-                return "Время перерыва.";
+                return "Р’СЂРµРјСЏ РїРµСЂРµСЂС‹РІР°.";
             }
         }
-        return "Занятия не идут, сейчас " + LocalTime.now().toString().substring(0, 8) + ".";
+        return "Р—Р°РЅСЏС‚РёСЏ РЅРµ РёРґСѓС‚, СЃРµР№С‡Р°СЃ " + LocalTime.now().toString().substring(0, 8) + ".";
     }
 
     private boolean isBetween(LocalTime currentTime, LocalTime startTime, LocalTime endTime) {
@@ -115,6 +115,6 @@ public class Schedule {
         long secondsUntilEnd = java.time.Duration.between(currentTime, endTime).getSeconds();
         long minutes = secondsUntilEnd / 60;
         long seconds = secondsUntilEnd % 60;
-        return "Осталось времени до конца " + periodType + ": " + minutes + " минут " + seconds + " секунд.";
+        return "РћСЃС‚Р°Р»РѕСЃСЊ РІСЂРµРјРµРЅРё РґРѕ РєРѕРЅС†Р° " + periodType + ": " + minutes + " РјРёРЅСѓС‚ " + seconds + " СЃРµРєСѓРЅРґ.";
     }
 }

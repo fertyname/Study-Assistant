@@ -24,20 +24,20 @@ public class Bot extends TelegramLongPollingBot {
 
             switch (messageText) {
                 case "/start":
-                    sendMessage(chatId, "Привет! Это бот для ТИБ23/2\n" +
-                            "Что бы узнать расписание -> /расписание\n" +
-                            "Что бы узнать оставшееся время до перемены -> /переменная");
+                    sendMessage(chatId, "РџСЂРёРІРµС‚! Р­С‚Рѕ Р±РѕС‚ РґР»СЏ РўРР‘23/2\n" +
+                            "Р§С‚Рѕ Р±С‹ СѓР·РЅР°С‚СЊ СЂР°СЃРїРёСЃР°РЅРёРµ -> /СЂР°СЃРїРёСЃР°РЅРёРµ\n" +
+                            "Р§С‚Рѕ Р±С‹ СѓР·РЅР°С‚СЊ РѕСЃС‚Р°РІС€РµРµСЃСЏ РІСЂРµРјСЏ РґРѕ РїРµСЂРµРјРµРЅС‹ -> /РїРµСЂРµРјРµРЅРЅР°СЏ");
                     break;
-                case "/расписание":
+                case "/СЂР°СЃРїРёСЃР°РЅРёРµ":
                     String scheduleMessage = schedule.getScheduleForToday();
                     sendMessage(chatId, scheduleMessage);
                     break;
-                case "/переменная":
+                case "/РїРµСЂРµРјРµРЅРЅР°СЏ":
                     String breakMessage = schedule.getBreakMessage();
                     sendMessage(chatId, breakMessage);
                     break;
                 default:
-                    sendMessage(chatId, "Неизвестная команда.");
+                    sendMessage(chatId, "РќРµРёР·РІРµСЃС‚РЅР°СЏ РєРѕРјР°РЅРґР°.");
                     break;
             }
         }
