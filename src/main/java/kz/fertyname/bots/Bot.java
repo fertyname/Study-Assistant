@@ -6,8 +6,6 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.time.LocalTime;
-
 public class Bot extends TelegramLongPollingBot {
 
     private static final String BOT_USERNAME = "";
@@ -35,7 +33,7 @@ public class Bot extends TelegramLongPollingBot {
                     sendMessage(chatId, scheduleMessage);
                     break;
                 case "/переменная":
-                    String breakMessage = schedule.getBreakMessage(LocalTime.now());
+                    String breakMessage = schedule.getBreakMessage();
                     sendMessage(chatId, breakMessage);
                     break;
                 default:
